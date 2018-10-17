@@ -6,6 +6,7 @@ from flask import Flask
 from flask import Response
 from flask import request
 from sketchengine import concordance
+from crossdomain import crossdomain
 
 app = Flask(__name__)
 
@@ -15,7 +16,8 @@ def hello() -> Response:
     return Response(None)
 
 
-@app.route('/examples', methods=['GET'])
+@app.route('/examples', methods=['GET', 'OPTIONS'])
+@crossdomain(origin='*')
 def examples() -> Response:
     q = request.args.get('q')
 
